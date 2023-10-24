@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Employee List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <style>
+    .logout{
+    color:red;
+    background-color:green;
+    radius:2px;
+    }
+    .table-container {
+      margin: 20px;
+    }
+    .table-colorful thead th {
+      background-color: lightblue;
+      color: white;
+    }
+    .table-colorful tbody tr:nth-child(odd) {
+      background-color: #f8f9fa;
+      opacity: 1;
+
+    }
+    .table-colorful tbody tr:hover {
+      background-color: #e2e6ea;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+<div class="table-container">
+  <h3>Employee Directory</h3>
+  <hr>
+
+  <div class="d-flex justify-content-between mb-3">
+    <a th:href="@{/employees/showFormForAdd}" class="btn btn-success">Add Employee</a>
+    <form action="#" th:action="@{/logout}" method="POST">
+      <input type="submit" value="Logout" class="btn btn-danger"/>
+    </form>
+  </div>
+
+  <table class="table table-bordered table-hover table-colorful">
+    <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tempEmployee : ${employees}">
+
+      <td th:text="${tempEmployee.firstName}"></td>
+      <td th:text="${tempEmployee.lastName}"></td>
+      <td th:text="${tempEmployee.email}"></td>
+
+      <td >
+      <a th:href="@{/employees/showFormForUpdate/{employeeId} (employeeId=${tempEmployee.id})}" class="btn btn-primary">Update</a>
+      <a th:href="@{/employees/delete/{employeeId} (employeeId=${tempEmployee.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</a>
+      </td>
+
+
+
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
